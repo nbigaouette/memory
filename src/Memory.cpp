@@ -44,6 +44,41 @@ void Print_N_Times(const std::string x, const int N, const bool newline)
 }
 
 // **************************************************************
+std::string Double_in_String_Binary(double d)
+/**
+ * Prints binary representation of a double
+ * http://www.exploringbinary.com/displaying-the-raw-fields-of-a-floating-point-number/
+ */
+{
+    uint64_t *double_as_int = (uint64_t *) &d;
+    const int bit_size = CHAR_BIT*sizeof(uint64_t);
+
+    std::string double_in_binary;
+    int counter = 0;
+
+    // Print bits by bits
+    for (int b = 0 ; b <= bit_size-1 ; b++)
+    {
+
+        if (b == 1)
+            double_in_binary[counter++] = ' ';  // Space after sign field
+        if (b == 12)
+            double_in_binary[counter++] = ' ';  // Space after exponent field
+
+        // Get bit, but in reverse order. On Little Endian machines
+        // (most of Intel and such), the byte with lower address
+        // is the less significant. Since we want to print from
+        // the most significant, we iterate from the end.
+        if ((*double_as_int >> ((bit_size-1)-b)) & 1)
+            double_in_binary[counter++] = '1';
+        else
+            double_in_binary[counter++] = '0';
+    }
+
+    return double_in_binary;
+}
+
+// **************************************************************
 void * calloc_and_check(unsigned int nb, size_t s, std::string msg)
 {
     return calloc_and_check((uint64_t) nb, s, msg);
