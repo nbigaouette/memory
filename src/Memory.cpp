@@ -29,8 +29,6 @@ double      GiBytes_to_MiBytes(const double gbytes);
 
 void        Print_Factors();
 
-void Print_N_Times(const std::string x, const int N, const bool newline = true);
-
 // **************************************************************
 void Print_N_Times(const std::string x, const int N, const bool newline)
 {

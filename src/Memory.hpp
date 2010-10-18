@@ -34,6 +34,8 @@ const double GiB_to_B   = 1073741824.0;
 const double GiB_to_KiB = 1048576.0;
 const double GiB_to_MiB = 1024.0;
 
+void Print_N_Times(const std::string x, const int N, const bool newline = true);
+
 class Memory_Allocation
 {
     private:
