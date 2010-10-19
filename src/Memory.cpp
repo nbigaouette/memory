@@ -99,26 +99,44 @@ void * calloc_and_check(uint64_t nb, size_t s, std::string msg)
     {
         Print_N_Times("#", max_text_width);
         std_cout
-            << "WARNING!!!" << std::endl << "    "
-            << "Trying to allocate " << nb << " x " << s << " bytes = " << nb_s << "bytes "
-            << "("  << double(nb_s) * B_to_KiB << " KiB, "
-                    << double(nb_s) * B_to_MiB << " MiB, "
-                    << double(nb_s) * B_to_GiB << " GiB)" << std::endl << "    "
-            << "but memory will be over the limit: "
-            << "("  << allocated_memory.Get_Max_Bytes() << " bytes, "
-                    << allocated_memory.Get_Max_KiBytes() << " KiB, "
-                    << allocated_memory.Get_Max_MiBytes() << " MiB, "
-                    << allocated_memory.Get_Max_GiBytes() << " GiB)" << std::endl << "    "
-            << "Current usage: "
-                << allocated_memory.Get_Bytes_Allocated() << " bytes, "
-                << allocated_memory.Get_KiBytes_Allocated() << " KiB, "
-                << allocated_memory.Get_MiBytes_Allocated() << " MiB, "
-                << allocated_memory.Get_GiBytes_Allocated() << " GiB)" << std::endl << "    "
-            << "Wanted usage: "
-                << mem_temp.Get_Bytes_Allocated() << " bytes, "
-                << mem_temp.Get_KiBytes_Allocated() << " KiB, "
-                << mem_temp.Get_MiBytes_Allocated() << " MiB, "
-                << mem_temp.Get_GiBytes_Allocated() << " GiB)" << std::endl;
+            << "WARNING!!!\n    "
+            << "Trying to allocate:           ";
+        std_cout.Format(20,0,'d');
+        std_cout << nb << " x " << s << " bytes = " << nb_s << " bytes\n";
+        std_cout << "                                               (";
+        std_cout.Format(8,3,'e');
+        std_cout
+            << Bytes_to_KiBytes(nb_s) << " KiB, "
+            << Bytes_to_MiBytes(nb_s) << " MiB, "
+            << Bytes_to_GiBytes(nb_s) << " GiB)\n    "
+            << "but memory will be over the limit:\n";
+        std_cout << "                   ";
+        std_cout.Format(20,0,'d');
+        std_cout
+            << allocated_memory.Get_Max_Bytes() << " bytes, (";
+        std_cout.Format(8,3,'e');
+        std_cout
+            << allocated_memory.Get_Max_KiBytes() << " KiB, "
+            << allocated_memory.Get_Max_MiBytes() << " MiB, "
+            << allocated_memory.Get_Max_GiBytes() << " GiB)\n    "
+            << "Current usage: ";
+        std_cout.Format(20,0,'d');
+        std_cout
+            << allocated_memory.Get_Bytes_Allocated() << " bytes, (";
+        std_cout.Format(8,3,'e');
+        std_cout
+            << allocated_memory.Get_KiBytes_Allocated() << " KiB, "
+            << allocated_memory.Get_MiBytes_Allocated() << " MiB, "
+            << allocated_memory.Get_GiBytes_Allocated() << " GiB)\n    "
+            << "Wanted usage:  ";
+        std_cout.Format(20,0,'d');
+        std_cout
+            << mem_temp.Get_Bytes_Allocated() << " bytes, (";
+        std_cout.Format(8,3,'e');
+        std_cout
+            << mem_temp.Get_KiBytes_Allocated() << " KiB, "
+            << mem_temp.Get_MiBytes_Allocated() << " MiB, "
+            << mem_temp.Get_GiBytes_Allocated() << " GiB)\n";
         if (msg != "")
         {
             std_cout << "    Comment: " << msg << std::endl;
@@ -136,13 +154,17 @@ void * calloc_and_check(uint64_t nb, size_t s, std::string msg)
     p = calloc(nb, s);
     if (p == NULL)
     {
+        std_cout << "ERROR!!!\n";
+        std_cout << "    Allocation of ";
+        std_cout.Format(20,0,'d');
+        std_cout << nb << " x " << s << " bytes = " << nb_s << " bytes\n";
+        std_cout << "                                               (";
+        std_cout.Format(8,3,'e');
         std_cout
-            << "Allocation of " << nb << " x " << s << " bytes = " << nb_s
-            << " bytes failed" << std::endl
-            << "("  << double(nb_s) * B_to_KiB << " KiB, "
-                    << double(nb_s) * B_to_MiB << " MiB, "
-                    << double(nb_s) * B_to_GiB << " GiB)" << std::endl
-            << "p = " << p << std::endl;
+            << Bytes_to_KiBytes(nb_s) << " KiB, "
+            << Bytes_to_MiBytes(nb_s) << " MiB, "
+            << Bytes_to_GiBytes(nb_s) << " GiB)\n"
+            << "    FAILED!!!\n";
         if (msg != "")
         {
             std_cout << "Comment: " << msg << std::endl;
@@ -192,26 +214,45 @@ void * malloc_and_check(uint64_t nb, size_t s, std::string msg)
     {
         Print_N_Times("#", max_text_width);
         std_cout
-            << "WARNING!!!" << std::endl << "    "
-            << "Trying to allocate " << nb << " x " << s << " bytes = " << nb_s << "bytes "
-            << "("  << double(nb_s) * B_to_KiB << " KiB, "
-                    << double(nb_s) * B_to_MiB << " MiB, "
-                    << double(nb_s) * B_to_GiB << " GiB)" << std::endl << "    "
-            << "but memory will be over the limit: "
-            << "("  << allocated_memory.Get_Max_Bytes() << " bytes, "
-                    << allocated_memory.Get_Max_KiBytes() << " KiB, "
-                    << allocated_memory.Get_Max_MiBytes() << " MiB, "
-                    << allocated_memory.Get_Max_GiBytes() << " GiB)" << std::endl << "    "
-            << "Current usage: "
-                << allocated_memory.Get_Bytes_Allocated() << " bytes, "
-                << allocated_memory.Get_KiBytes_Allocated() << " KiB, "
-                << allocated_memory.Get_MiBytes_Allocated() << " MiB, "
-                << allocated_memory.Get_GiBytes_Allocated() << " GiB)" << std::endl << "    "
-            << "Wanted usage: "
-                << mem_temp.Get_Bytes_Allocated() << " bytes, "
-                << mem_temp.Get_KiBytes_Allocated() << " KiB, "
-                << mem_temp.Get_MiBytes_Allocated() << " MiB, "
-                << mem_temp.Get_GiBytes_Allocated() << " GiB)" << std::endl;
+            << "WARNING!!!\n    "
+            << "Trying to allocate:           ";
+        std_cout.Format(20,0,'d');
+        std_cout << nb << " x " << s << " bytes = " << nb_s << " bytes\n";
+        std_cout << "                                               (";
+        std_cout.Format(8,3,'e');
+        std_cout
+            << Bytes_to_KiBytes(nb_s) << " KiB, "
+            << Bytes_to_MiBytes(nb_s) << " MiB, "
+            << Bytes_to_GiBytes(nb_s) << " GiB)\n    "
+            << "but memory will be over the limit:\n";
+        std_cout << "                   ";
+        std_cout.Format(20,0,'d');
+        std_cout
+            << allocated_memory.Get_Max_Bytes() << " bytes, (";
+        std_cout.Format(8,3,'e');
+        std_cout
+            << allocated_memory.Get_Max_KiBytes() << " KiB, "
+            << allocated_memory.Get_Max_MiBytes() << " MiB, "
+            << allocated_memory.Get_Max_GiBytes() << " GiB)\n    "
+            << "Current usage: ";
+        std_cout.Format(20,0,'d');
+        std_cout
+            << allocated_memory.Get_Bytes_Allocated() << " bytes, (";
+        std_cout.Format(8,3,'e');
+        std_cout
+            << allocated_memory.Get_KiBytes_Allocated() << " KiB, "
+            << allocated_memory.Get_MiBytes_Allocated() << " MiB, "
+            << allocated_memory.Get_GiBytes_Allocated() << " GiB)\n    "
+            << "Wanted usage:  ";
+        std_cout.Format(20,0,'d');
+        std_cout
+            << mem_temp.Get_Bytes_Allocated() << " bytes, (";
+        std_cout.Format(8,3,'e');
+        std_cout
+            << mem_temp.Get_KiBytes_Allocated() << " KiB, "
+            << mem_temp.Get_MiBytes_Allocated() << " MiB, "
+            << mem_temp.Get_GiBytes_Allocated() << " GiB)\n";
+
         if (msg != "")
         {
             std_cout << "    Comment: " << msg << std::endl;
@@ -229,13 +270,18 @@ void * malloc_and_check(uint64_t nb, size_t s, std::string msg)
     p = malloc(nb * s);
     if (p == NULL)
     {
+        std_cout << "ERROR!!!\n";
+        std_cout << "    Allocation of ";
+        std_cout.Format(20,0,'d');
+        std_cout << nb << " x " << s << " bytes = " << nb_s << " bytes\n";
+        std_cout << "                                               (";
+        std_cout.Format(8,3,'e');
         std_cout
-            << "Allocation of " << nb << " x " << s << " bytes = " << nb_s
-            << " bytes failed" << std::endl
-            << "("  << double(nb_s) * B_to_KiB << " KiB, "
-                    << double(nb_s) * B_to_MiB << " MiB, "
-                    << double(nb_s) * B_to_GiB << " GiB)" << std::endl
-            << "p = " << p << std::endl;
+            << Bytes_to_KiBytes(nb_s) << " KiB, "
+            << Bytes_to_MiBytes(nb_s) << " MiB, "
+            << Bytes_to_GiBytes(nb_s) << " GiB)\n"
+            << "    FAILED!!!\n";
+
         if (msg != "")
         {
             std_cout << "Comment: " << msg << std::endl;
@@ -479,17 +525,21 @@ void Memory_Allocation::Set_Max_GiBytes(double gbytes)
 // **************************************************************
 void Memory_Allocation::Print()
 {
-    std_cout
-        << "Memory allocated: "
-            << Get_Bytes_Allocated()   << " bytes ("
-            << Get_KiBytes_Allocated() << " KiB, "
-            << Get_MiBytes_Allocated() << " MiB, "
-            << Get_GiBytes_Allocated() << " GiB)" << std::endl
-        << "Maximum memory allowed: "
-            << Get_Max_Bytes()   << " bytes ("
-            << Get_Max_KiBytes() << " KiB, "
-            << Get_Max_MiBytes() << " MiB, "
-            << Get_Max_GiBytes() << " GiB)" << std::endl;
+    std_cout << "Memory allocated:       ";
+    std_cout.Format(20,0,'d');
+    std_cout    << Get_Bytes_Allocated()   << " bytes (";
+    std_cout.Format(8,3,'e');
+    std_cout    << Get_KiBytes_Allocated() << " KiB, "
+                << Get_MiBytes_Allocated() << " MiB, "
+                << Get_GiBytes_Allocated() << " GiB)\n";
+
+    std_cout << "Maximum memory allowed: ";
+    std_cout.Format(20,0,'d');
+    std_cout    << Get_Max_Bytes()   << " bytes (";
+    std_cout.Format(8,3,'e');
+    std_cout    << Get_Max_KiBytes() << " KiB, "
+                << Get_Max_MiBytes() << " MiB, "
+                << Get_Max_GiBytes() << " GiB)\n";
 }
 
 // **************************************************************
