@@ -34,6 +34,19 @@ const double GiB_to_B   = 1073741824.0;
 const double GiB_to_KiB = 1048576.0;
 const double GiB_to_MiB = 1024.0;
 
+double      Bytes_to_KiBytes(const uint64_t bytes);
+double      Bytes_to_MiBytes(const uint64_t bytes);
+double      Bytes_to_GiBytes(const uint64_t bytes);
+uint64_t    KiBytes_to_Bytes(  const double kbytes);
+double      KiBytes_to_MiBytes(const double kbytes);
+double      KiBytes_to_GiBytes(const double kbytes);
+uint64_t    MiBytes_to_Bytes(  const double mbytes);
+double      MiBytes_to_KiBytes(const double mbytes);
+double      MiBytes_to_GiBytes(const double mbytes);
+uint64_t    GiBytes_to_Bytes(  const double gbytes);
+double      GiBytes_to_KiBytes(const double gbytes);
+double      GiBytes_to_MiBytes(const double gbytes);
+
 void Print_N_Times(const std::string x, const int N, const bool newline = true);
 
 class Memory_Allocation
