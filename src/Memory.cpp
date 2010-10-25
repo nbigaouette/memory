@@ -104,7 +104,7 @@ void * calloc_and_check(uint64_t nb, size_t s, std::string msg)
         std_cout.Format(20,0,'d');
         std_cout << nb << " x " << s << " bytes = " << nb_s << " bytes\n";
         std_cout << "                                               (";
-        std_cout.Format(8,3,'e');
+        std_cout.Format(0, 3, 'g');
         std_cout
             << Bytes_to_KiBytes(nb_s) << " KiB, "
             << Bytes_to_MiBytes(nb_s) << " MiB, "
@@ -114,7 +114,7 @@ void * calloc_and_check(uint64_t nb, size_t s, std::string msg)
         std_cout.Format(20,0,'d');
         std_cout
             << allocated_memory.Get_Max_Bytes() << " bytes, (";
-        std_cout.Format(8,3,'e');
+        std_cout.Format(0, 3, 'g');
         std_cout
             << allocated_memory.Get_Max_KiBytes() << " KiB, "
             << allocated_memory.Get_Max_MiBytes() << " MiB, "
@@ -123,7 +123,7 @@ void * calloc_and_check(uint64_t nb, size_t s, std::string msg)
         std_cout.Format(20,0,'d');
         std_cout
             << allocated_memory.Get_Bytes_Allocated() << " bytes, (";
-        std_cout.Format(8,3,'e');
+        std_cout.Format(0, 3, 'g');
         std_cout
             << allocated_memory.Get_KiBytes_Allocated() << " KiB, "
             << allocated_memory.Get_MiBytes_Allocated() << " MiB, "
@@ -132,7 +132,7 @@ void * calloc_and_check(uint64_t nb, size_t s, std::string msg)
         std_cout.Format(20,0,'d');
         std_cout
             << mem_temp.Get_Bytes_Allocated() << " bytes, (";
-        std_cout.Format(8,3,'e');
+        std_cout.Format(0, 3, 'g');
         std_cout
             << mem_temp.Get_KiBytes_Allocated() << " KiB, "
             << mem_temp.Get_MiBytes_Allocated() << " MiB, "
@@ -159,7 +159,7 @@ void * calloc_and_check(uint64_t nb, size_t s, std::string msg)
         std_cout.Format(20,0,'d');
         std_cout << nb << " x " << s << " bytes = " << nb_s << " bytes\n";
         std_cout << "                                               (";
-        std_cout.Format(8,3,'e');
+        std_cout.Format(0, 3, 'g');
         std_cout
             << Bytes_to_KiBytes(nb_s) << " KiB, "
             << Bytes_to_MiBytes(nb_s) << " MiB, "
@@ -219,7 +219,7 @@ void * malloc_and_check(uint64_t nb, size_t s, std::string msg)
         std_cout.Format(20,0,'d');
         std_cout << nb << " x " << s << " bytes = " << nb_s << " bytes\n";
         std_cout << "                                               (";
-        std_cout.Format(8,3,'e');
+        std_cout.Format(0, 3, 'g');
         std_cout
             << Bytes_to_KiBytes(nb_s) << " KiB, "
             << Bytes_to_MiBytes(nb_s) << " MiB, "
@@ -229,7 +229,7 @@ void * malloc_and_check(uint64_t nb, size_t s, std::string msg)
         std_cout.Format(20,0,'d');
         std_cout
             << allocated_memory.Get_Max_Bytes() << " bytes, (";
-        std_cout.Format(8,3,'e');
+        std_cout.Format(0, 3, 'g');
         std_cout
             << allocated_memory.Get_Max_KiBytes() << " KiB, "
             << allocated_memory.Get_Max_MiBytes() << " MiB, "
@@ -238,7 +238,7 @@ void * malloc_and_check(uint64_t nb, size_t s, std::string msg)
         std_cout.Format(20,0,'d');
         std_cout
             << allocated_memory.Get_Bytes_Allocated() << " bytes, (";
-        std_cout.Format(8,3,'e');
+        std_cout.Format(0, 3, 'g');
         std_cout
             << allocated_memory.Get_KiBytes_Allocated() << " KiB, "
             << allocated_memory.Get_MiBytes_Allocated() << " MiB, "
@@ -247,7 +247,7 @@ void * malloc_and_check(uint64_t nb, size_t s, std::string msg)
         std_cout.Format(20,0,'d');
         std_cout
             << mem_temp.Get_Bytes_Allocated() << " bytes, (";
-        std_cout.Format(8,3,'e');
+        std_cout.Format(0, 3, 'g');
         std_cout
             << mem_temp.Get_KiBytes_Allocated() << " KiB, "
             << mem_temp.Get_MiBytes_Allocated() << " MiB, "
@@ -275,7 +275,7 @@ void * malloc_and_check(uint64_t nb, size_t s, std::string msg)
         std_cout.Format(20,0,'d');
         std_cout << nb << " x " << s << " bytes = " << nb_s << " bytes\n";
         std_cout << "                                               (";
-        std_cout.Format(8,3,'e');
+        std_cout.Format(0, 3, 'g');
         std_cout
             << Bytes_to_KiBytes(nb_s) << " KiB, "
             << Bytes_to_MiBytes(nb_s) << " MiB, "
@@ -528,7 +528,7 @@ void Memory_Allocation::Print()
     std_cout << "Memory allocated:       ";
     std_cout.Format(20,0,'d');
     std_cout    << Get_Bytes_Allocated()   << " bytes (";
-    std_cout.Format(8,3,'e');
+    std_cout.Format(0, 3, 'g');
     std_cout    << Get_KiBytes_Allocated() << " KiB, "
                 << Get_MiBytes_Allocated() << " MiB, "
                 << Get_GiBytes_Allocated() << " GiB)\n";
@@ -536,7 +536,7 @@ void Memory_Allocation::Print()
     std_cout << "Maximum memory allowed: ";
     std_cout.Format(20,0,'d');
     std_cout    << Get_Max_Bytes()   << " bytes (";
-    std_cout.Format(8,3,'e');
+    std_cout.Format(0, 3, 'g');
     std_cout    << Get_Max_KiBytes() << " KiB, "
                 << Get_Max_MiBytes() << " MiB, "
                 << Get_Max_GiBytes() << " GiB)\n";
