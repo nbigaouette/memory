@@ -2,9 +2,16 @@
 #define INC_MEMORY_hpp
 
 #include <cstddef>  // size_t
-#include <stdint.h> // uint64_t
 #include <cstdlib>  // free()
 #include <climits> // CHAR_BIT
+
+#ifdef __PGI
+#include <boost/cstdint.hpp>
+using namespace boost;
+#else
+// #include <stdint.h> // (u)int64_t
+#include <cstdint>
+#endif // #ifdef __PGI
 
 #include "StdCout.hpp"
 
