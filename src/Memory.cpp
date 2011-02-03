@@ -143,6 +143,7 @@ void * calloc_and_check(uint64_t nb, size_t s, std::string msg)
         }
 
         std::string answer = MemPause("Are you sure you want to continue? [y,N]");
+        std_cout << std::flush;
         if ( ! (answer == "y" || answer == "Y"))
         {
             std_cout << "Exiting.\n" << std::flush;

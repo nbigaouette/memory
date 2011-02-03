@@ -109,7 +109,7 @@ inline std::string MemPause(std::string msg = std::string(""))
     std::string answer;
     if (msg != std::string(""))
     {
-        std_cout << msg << std::endl;
+        std_cout << msg << std::endl << std::flush;
     }
     getline(std::cin, answer);
 
