@@ -26,39 +26,7 @@ include makefiles/Makefile.rules
 
 LIB_OBJ          = $(OBJ)
 
-################################################################
-### StdCout library default location (home directory)
-LibName         := stdcout
-LibIncludes     := $(HOME)/usr/include
-ifeq ($(DESTDIRCOMPILER),gcc)
-LibLocation     := $(HOME)/usr/lib
-else
-LibLocation     := $(HOME)/usr/lib/$(DESTDIRCOMPILER)
-endif
-
-### Check if the location exist. If not, try the /usr directoy
-ifeq ($(wildcard $(LibLocation)/lib$(LibName).*),)
-LibIncludes     := /usr/include/$(LibName)
-ifeq ($(DESTDIRCOMPILER),gcc)
-LibLocation     := /usr/lib
-else
-LibLocation     := /usr/lib/$(DESTDIRCOMPILER)
-endif
-endif
-
-### If library is not found, bail out!
-ifeq ($(wildcard $(LibLocation)/lib$(LibName).*),)
-$(error ERROR: $(LibName) could not be found in "$(LibLocation)"! Please install it from ssh://optimusprime.selfip.net/git/nicolas/$(LibName).git)
-endif
-
-### Add library flags
-CFLAGS          += -I$(LibIncludes)
-ifeq ($(LINK_PREFERED),shared)
-LDFLAGS         += -L$(LibLocation) -l$(LibName) $(RPATH)$(LibLocation)
-else # static
-LDFLAGS         += $(LibLocation)/lib$(LibName).a
-endif
-################################################################
+$(eval $(call Flags_template,stdcout,StdCout.hpp,ssh://optimusprime.selfip.net/git/nicolas/stdcout.git))
 
 
 ### Just build "full" and install
