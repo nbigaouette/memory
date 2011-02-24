@@ -149,17 +149,17 @@ std::string Integer_in_String_Binary(Integer n)
 {
                                         // Example 32 bits integers, converted from
                                         // http://www.binaryconvert.com/convert_unsigned_int.html
-    const Integer zero  =  Integer(0);  // 00000000 00000000 00000000 00000000
-    //const Integer ones  = ~zero;        // 11111111 11111111 11111111 11111111
-    const Integer one   =  Integer(1);  // 00000000 00000000 00000000 00000001
-    //const Integer two   =  Integer(2);  // 00000000 00000000 00000000 00000010
-    //const Integer eigth =  Integer(8);  // 00000000 00000000 00000000 00001000
+    const Integer i_zero    =  Integer(0);  // 00000000 00000000 00000000 00000000
+    //const Integer i_ones    = ~i_zero;      // 11111111 11111111 11111111 11111111
+    const Integer i_one     =  Integer(1);  // 00000000 00000000 00000000 00000001
+    //const Integer i_two     =  Integer(2);  // 00000000 00000000 00000000 00000010
+    //const Integer i_eigth   =  Integer(8);  // 00000000 00000000 00000000 00001000
     const Integer nb_bits_per_byte    = CHAR_BIT; // Normaly, it is 8, but could be different.
     const Integer nb_bits_per_Integer = sizeof(n)*nb_bits_per_byte;
 
     // Starting from the LSB being index "0", the MSB is at index "msb_position"
-    const Integer msb_position  = nb_bits_per_Integer - one;
-    const Integer msb           = one << msb_position;
+    const Integer msb_position  = nb_bits_per_Integer - i_one;
+    const Integer msb           = i_one << msb_position;
     const Integer or_msb        = ~msb;
 
     std::string integer_in_binary;
@@ -177,10 +177,10 @@ std::string Integer_in_String_Binary(Integer n)
     // reprentation "valid" (we want mask == 01000...). To fix that, after
     // right shifting the mask by one, we "AND" it (using "&") with "or_msb"
     // (or_msb == 01111...) to make sure we forget the sign bit.
-    for (Integer mask = msb ; mask != zero ; mask = ((mask >> one) & or_msb ))
+    for (Integer mask = msb ; mask != i_zero ; mask = ((mask >> i_one) & or_msb ))
     {
         // If "n"'s bit at position of the mask is 0, print 0, else print 1.
-        if ((mask & n) == zero) integer_in_binary[counter++] = '0';
+        if ((mask & n) == i_zero) integer_in_binary[counter++] = '0';
         else                    integer_in_binary[counter++] = '1';
 
     }
