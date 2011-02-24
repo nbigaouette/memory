@@ -163,7 +163,7 @@ std::string Integer_in_String_Binary(Integer n)
     const Integer or_msb        = ~msb;
 
     std::string integer_in_binary;
-    int counter = 0;
+    Integer counter = 0;
 
     // Note that right shifting a signed integer migth keep the sign bit intact
     // (instead of setting it to 0) because C/C++ is implementation dependant
