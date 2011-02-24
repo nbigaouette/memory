@@ -181,7 +181,7 @@ std::string Integer_in_String_Binary(Integer n)
     {
         // If "n"'s bit at position of the mask is 0, print 0, else print 1.
         if ((mask & n) == i_zero) integer_in_binary[counter++] = '0';
-        else                    integer_in_binary[counter++] = '1';
+        else                      integer_in_binary[counter++] = '1';
 
     }
 
