@@ -162,7 +162,7 @@ std::string Integer_in_String_Binary(Integer n)
     const Integer msb           = i_one << msb_position;
     const Integer or_msb        = ~msb;
 
-    std::string integer_in_binary;
+    std::string integer_in_binary(nb_bits_per_Integer, ' ');
     Integer counter = 0;
 
     // Note that right shifting a signed integer migth keep the sign bit intact
