@@ -42,7 +42,7 @@ class LookUpTable
         //char rocker[] = "|/-\\|/-\\";
         for (int i = 0 ; i <= n ; i++)
         {
-            x        = Double(i)*dx;
+            x        = Double(i)*dx + range_min;
             table[i] = function(x);
             percentage = int(Double(i) / Double(n) * 100.0);
             if ((percentage % 2) == 0)
