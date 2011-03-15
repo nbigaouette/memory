@@ -13,6 +13,7 @@
 LIB             := memory
 BIN              = $(LIB)_test
 SRCDIRS          = src
+TESTDIRS         = unit_testing
 SRCEXT           = cpp
 HEADEXT          = hpp
 HEADERS          = $(wildcard $(addsuffix *.$(HEADEXT),$(addsuffix /, $(SRCDIRS)) ) )
@@ -145,11 +146,6 @@ install_create_folders:
 ifneq (,$(filter $(host), $(HPCVL_MACHINES) ))
 	$(SUDO) mkdir -p $(DESTDIR_LIB)
 endif
-
-test:
-	# INSTALLED_HEADERS = $(INSTALLED_HEADERS)
-	# HEADERS_NOTESTING_NOSRC = $(HEADERS_NOTESTING_NOSRC)
-	# (HEADERS) = $(HEADERS)
 
 .PHONY: uninstall
 uninstall: force
