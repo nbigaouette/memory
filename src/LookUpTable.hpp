@@ -19,10 +19,28 @@ class LookUpTable
     Double *table;      // Array that contains the values
 
     public:
+    LookUpTable()
+    {
+        n           = 0;
+        range_min   = 0.0;
+        range_max   = 0.0;
+        dx          = 0.0;
+        inv_dx      = 0.0;
+        table       = NULL;
+    }
+
     // **************************************************************
     LookUpTable(Double (*function)(Double),
                         const Double _range_min, const Double _range_max,
                         const int _n, const std::string _name)
+    {
+        Initialize(function, _range_min, _range_max, _n, _name);
+    }
+
+    // **************************************************************
+    void Initialize(Double (*function)(Double),
+                    const Double _range_min, const Double _range_max,
+                    const int _n, const std::string _name)
     {
         name        = _name;
         n           = _n;
