@@ -128,6 +128,15 @@ class LookUpTable
     }
 
     // **************************************************************
+    void Print_Table()
+    {
+        for (int i = 0 ; i < n ; i++)
+        {
+            std_cout << i << "  "; std_cout.Format(20,10,'f'); std_cout << Table(i) << "\n";
+        }
+    }
+
+    // **************************************************************
     inline Double read(const Double x)
     /**
      *   Reads the table and returns an interpolated (linear) value at point x.
