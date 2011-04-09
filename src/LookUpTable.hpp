@@ -82,12 +82,12 @@ class LookUpTable
         char suffix;
         if(memsize >= 1.024e3)
         {
-            memsize *= 1.0/1.024e3;
+            memsize *= Double(1.0/1.024e3);
             suffix = 'k';
         }
         if(memsize >= 1.024e3)
         {
-            memsize *= 1.0/1.024e3;
+            memsize *= Double(1.0/1.024e3);
             suffix = 'M';
         }
 
