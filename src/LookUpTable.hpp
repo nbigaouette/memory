@@ -111,7 +111,7 @@ class LookUpTable
 #ifdef YDEBUG
         assert(i < n);
 #endif // #ifdef YDEBUG
-        return table[i] + (table[i+1]-table[i])*(xnorm-i);
+        return table[i] + (table[i+1]-table[i])*(xnorm-Double(i));
     }
 
     // **************************************************************
