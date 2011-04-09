@@ -44,6 +44,12 @@ class LookUpTable
     }
 
     // **************************************************************
+    const Double* Get_Pointer() const
+    {
+        return table;
+    }
+
+    // **************************************************************
     Double Table(const int i)
     {
 #ifdef YDEBUG
