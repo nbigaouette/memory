@@ -38,6 +38,12 @@ class LookUpTable
     }
 
     // **************************************************************
+    int Get_n()
+    {
+        return n;
+    }
+
+    // **************************************************************
     void Initialize(Double (*function)(Double),
                     const Double _range_min, const Double _range_max,
                     const int _n, const std::string _name)
