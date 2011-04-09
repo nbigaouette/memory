@@ -44,6 +44,27 @@ class LookUpTable
     }
 
     // **************************************************************
+    Double Table(const int i)
+    {
+#ifdef YDEBUG
+        assert(i < n);
+#endif // #ifdef YDEBUG
+        return table[i];
+    }
+
+    // **************************************************************
+    Double Get_Min()
+    {
+        return range_min;
+    }
+
+    // **************************************************************
+    Double Get_Max()
+    {
+        return range_max;
+    }
+
+    // **************************************************************
     void Initialize(Double (*function)(Double),
                     const Double _range_min, const Double _range_max,
                     const int _n, const std::string _name)
