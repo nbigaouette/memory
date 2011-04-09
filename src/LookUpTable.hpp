@@ -90,7 +90,7 @@ class LookUpTable
         std_cout << "Building lookup table table \"" << _name << "\"..." << std::flush;
         Double x = 0.0;
         int percentage = 0;
-        for (int i = 0 ; i <= n ; i++)
+        for (int i = 0 ; i < n ; i++)
         {
             x        = Double(i)*dx + range_min;
             table[i] = function(x);
