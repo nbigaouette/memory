@@ -67,6 +67,8 @@ class LookUpTable
         dx          = (range_max - range_min) / Double(n);
         inv_dx      = Double(1.0) / dx;
 
+        // Allocate n+1 points, since read() does a linear interpolation
+        // between table[i] and table[i+1].
         table       = (Double *) calloc_and_check(n+1, sizeof(Double), "LookUpTable");
 
         Print();
@@ -74,7 +76,8 @@ class LookUpTable
         std_cout << "Building lookup table table \"" << _name << "\"..." << std::flush;
         Double x = 0.0;
         int percentage = 0;
-        for (int i = 0 ; i < n ; i++)
+
+        for (int i = 0 ; i <= n ; i++)
         {
             x        = Double(i)*dx + range_min;
             table[i] = function(x);
@@ -114,7 +117,7 @@ class LookUpTable
     // **************************************************************
     void Print_Table()
     {
-        for (int i = 0 ; i < n ; i++)
+        for (int i = 0 ; i <= n ; i++)
         {
             std_cout << i << "  "; std_cout.Format(20,10,'f'); std_cout << Table(i) << "\n";
         }
