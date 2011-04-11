@@ -38,16 +38,10 @@ class LookUpTable
     }
 
     // **************************************************************
-    int Get_n()
-    {
-        return n;
-    }
-
-    // **************************************************************
-    const Double* Get_Pointer() const
-    {
-        return table;
-    }
+    int Get_n()                         { return n;         }
+    Double Get_XMin()                   { return range_min; }
+    Double Get_XMax()                   { return range_max; }
+    const Double* Get_Pointer() const   { return table;     }
 
     // **************************************************************
     Double Table(const int i)
@@ -56,18 +50,6 @@ class LookUpTable
         assert(i < n);
 #endif // #ifdef YDEBUG
         return table[i];
-    }
-
-    // **************************************************************
-    Double Get_Min()
-    {
-        return range_min;
-    }
-
-    // **************************************************************
-    Double Get_Max()
-    {
-        return range_max;
     }
 
     // **************************************************************
