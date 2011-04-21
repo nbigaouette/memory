@@ -138,6 +138,18 @@ class LookUpTable
     }
 
     // **************************************************************
+    void Set(const int i, const Double x)
+    /**
+     *   Set manually the table.
+     */
+    {
+        assert(i >= 0);
+        assert(i <= n); // n is inclusive!!!
+
+        table[i] = x;
+    }
+
+    // **************************************************************
     ~LookUpTable()
     {
         free_me(table, n);
