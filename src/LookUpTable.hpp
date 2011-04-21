@@ -44,6 +44,7 @@ class LookUpTable
     Double  Get_inv_dx()                { return inv_dx;    }
     Double  Get_XMin()                  { return range_min; }
     Double  Get_XMax()                  { return range_max; }
+    Double  Get_x_from_i(const int i)   { return Double(i)*dx + range_min; }
     const Double* Get_Pointer() const   { return table;     }
 
     // **************************************************************
