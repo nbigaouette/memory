@@ -18,6 +18,7 @@ class LookUpTable
     Double inv_dx;      // 1/(step size)
     Double *table;      // Array that contains the values
     bool is_initialized; // Is the look up table initialized?
+    Double (*function)(Double); // Function pointer. Needs to take only one Double parameter and return a Double: function(x)
 
     public:
     LookUpTable()
@@ -28,15 +29,16 @@ class LookUpTable
         dx          = 0.0;
         inv_dx      = 0.0;
         table       = NULL;
+        function    = NULL;
         is_initialized = false;
     }
 
     // **************************************************************
-    LookUpTable(Double (*function)(Double),
-                        const Double _range_min, const Double _range_max,
-                        const int _n, const std::string _name)
+    LookUpTable(Double (*_function)(Double),
+                const Double _range_min, const Double _range_max,
+                const int _n, const std::string _name, Double *_table = NULL)
     {
-        Initialize(function, _range_min, _range_max, _n, _name);
+        Initialize(_function, _range_min, _range_max, _n, _name, _table);
     }
 
     // **************************************************************
@@ -57,12 +59,13 @@ class LookUpTable
     }
 
     // **************************************************************
-    void Initialize(Double (*function)(Double),
+    void Initialize(Double (*_function)(Double),
                     const Double _range_min, const Double _range_max,
                     const int _n, const std::string _name)
     {
         is_initialized = true;
 
+        function = _function;
         name        = _name;
         n           = _n;
         range_min   = _range_min;
@@ -81,14 +84,23 @@ class LookUpTable
         Double x = 0.0;
         int percentage = 0;
 
-        for (int i = 0 ; i <= n ; i++)
+        if (function != NULL)
         {
-            x        = Double(i)*dx + range_min;
-            table[i] = function(x);
-            percentage = int(Double(i) / Double(n) * 100.0);
-            if ((percentage % 2) == 0)
-                printf(" %3d %%\b\b\b\b\b\b", percentage);
-            fflush(stdout);
+            assert(table != NULL);
+
+            for (int i = 0 ; i <= n ; i++)
+            {
+                x        = Get_x_from_i(i);
+                table[i] = function(x);
+                percentage = int(Double(i) / Double(n) * 100.0);
+                if ((percentage % 2) == 0)
+                    printf(" %3d %%\b\b\b\b\b\b", percentage);
+                fflush(stdout);
+            }
+        }
+        else
+        {
+            std_cout << " Nothing to do since function pointer given is NULL." << std::flush;
         }
         std_cout << " Done.   \n" << std::flush;
     }
@@ -152,6 +164,7 @@ class LookUpTable
      *   Set manually the table.
      */
     {
+        assert(function == NULL);
         assert(is_initialized);
         assert(i >= 0);
         assert(i <= n); // n is inclusive!!!
