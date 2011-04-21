@@ -53,7 +53,7 @@ class LookUpTable
     Double Table(const int i)
     {
 #ifdef YDEBUG
-        assert(i < n);
+        assert(i <= n);
 #endif // #ifdef YDEBUG
         return table[i];
     }
