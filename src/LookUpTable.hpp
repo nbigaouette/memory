@@ -17,6 +17,7 @@ class LookUpTable
     Double dx;          // Step size (physical distance between two points)
     Double inv_dx;      // 1/(step size)
     Double *table;      // Array that contains the values
+    bool is_initialized; // Is the look up table initialized?
 
     public:
     LookUpTable()
@@ -27,6 +28,7 @@ class LookUpTable
         dx          = 0.0;
         inv_dx      = 0.0;
         table       = NULL;
+        is_initialized = false;
     }
 
     // **************************************************************
@@ -59,6 +61,8 @@ class LookUpTable
                     const Double _range_min, const Double _range_max,
                     const int _n, const std::string _name)
     {
+        is_initialized = true;
+
         name        = _name;
         n           = _n;
         range_min   = _range_min;
@@ -143,6 +147,7 @@ class LookUpTable
      *   Set manually the table.
      */
     {
+        assert(is_initialized);
         assert(i >= 0);
         assert(i <= n); // n is inclusive!!!
 
