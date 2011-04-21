@@ -61,7 +61,7 @@ class LookUpTable
     // **************************************************************
     void Initialize(Double (*_function)(Double),
                     const Double _range_min, const Double _range_max,
-                    const int _n, const std::string _name)
+                    const int _n, const std::string _name, Double *_table = NULL)
     {
         is_initialized = true;
 
@@ -71,12 +71,19 @@ class LookUpTable
         range_min   = _range_min;
         range_max   = _range_max;
 
+        if (_table != NULL)
+        {
+            table   = _table;
+        }
+        else
+        {
+            // Allocate n+1 points, since read() does a linear interpolation
+            // between table[i] and table[i+1].
+            table   = (Double *) calloc_and_check(n+1, sizeof(Double), "LookUpTable");
+        }
+
         dx          = (range_max - range_min) / Double(n);
         inv_dx      = Double(1.0) / dx;
-
-        // Allocate n+1 points, since read() does a linear interpolation
-        // between table[i] and table[i+1].
-        table       = (Double *) calloc_and_check(n+1, sizeof(Double), "LookUpTable");
 
         Print();
 
