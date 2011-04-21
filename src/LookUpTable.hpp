@@ -97,16 +97,21 @@ class LookUpTable
     void Print()
     {
         Double memsize = Double(n+1) * sizeof(Double);
-        char suffix;
+        std::string suffix;
         if(memsize >= 1.024e3)
         {
             memsize *= Double(1.0/1.024e3);
-            suffix = 'k';
+            suffix = "ki";
         }
         if(memsize >= 1.024e3)
         {
             memsize *= Double(1.0/1.024e3);
-            suffix = 'M';
+            suffix = "Mi";
+        }
+        if(memsize >= 1.024e3)
+        {
+            memsize *= Double(1.0/1.024e3);
+            suffix = "Gi";
         }
 
         std_cout
@@ -115,7 +120,7 @@ class LookUpTable
             << "    Range:              [" << range_min << ", " << range_max << "]\n"
             << "    Number of points:   " << n << "\n"
             << "    dx:                 " << dx << "\n"
-            << "    Size:               " << memsize << " " << suffix << "\n";
+            << "    Size:               " << memsize << " " << suffix << "B\n";
     }
 
     // **************************************************************
