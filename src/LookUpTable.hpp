@@ -143,11 +143,11 @@ class LookUpTable
     }
 
     // **************************************************************
-    void Print_Table()
+    void Print_Table(const Double factor = 1.0)
     {
         for (int i = 0 ; i <= n ; i++)
         {
-            std_cout << i << "  "; std_cout.Format(20,10,'f'); std_cout << Table(i) << "\n";
+            std_cout << i << "  "; std_cout.Format(20,10,'f'); std_cout << Table(i)*factor << "\n";
         }
     }
 
