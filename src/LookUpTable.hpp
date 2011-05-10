@@ -143,11 +143,13 @@ class LookUpTable
     }
 
     // **************************************************************
-    void Print_Table(const Double factor = 1.0)
+    void Print_Table(const Double factor_x = 1.0, const Double factor_y = 1.0)
     {
         for (int i = 0 ; i <= n ; i++)
         {
-            std_cout << i << "  "; std_cout.Format(20,10,'f'); std_cout << Table(i)*factor << "\n";
+            //std_cout.Format(20,10,'g'); std_cout << Get_x_from_i(i)*factor_x << "  "; std_cout.Format(20,10,'g'); std_cout << Table(i)*factor_y << "\n";
+            //fprintf(stderr, "%20.10g   %20.10g\n", Get_x_from_i(i)*factor_x, Table(i)*factor_y*Get_x_from_i(i));
+            fprintf(stderr, "%20.10g   %20.10g\n", Get_x_from_i(i)*factor_x, Table(i)*factor_y);
         }
     }
 
