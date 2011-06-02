@@ -132,6 +132,21 @@ void free_me(Pointer &p, const uint64_t nb = 0)
 }
 
 // **************************************************************
+template <class Pointer>
+void free_me_size(Pointer &p, const size_t size_to_remove)
+{
+    if (p != NULL)
+    {
+        // Remove bytes from allocated memory count
+        allocated_memory -= size_to_remove;
+
+        // Free memory
+        free(p);
+    }
+    p = NULL;
+}
+
+// **************************************************************
 std::string Double_in_String_Binary(double d);
 
 // **************************************************************
