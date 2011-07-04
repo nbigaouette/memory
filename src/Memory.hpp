@@ -54,6 +54,18 @@ uint64_t    GiBytes_to_Bytes(  const double gbytes);
 double      GiBytes_to_KiBytes(const double gbytes);
 double      GiBytes_to_MiBytes(const double gbytes);
 
+inline std::string Bytes_in_String(const uint64_t bytes)
+{
+    std::ostringstream MyStream;
+    MyStream
+        << bytes << " bytes ("
+            << Bytes_to_KiBytes(bytes) << " KiB, "
+            << Bytes_to_MiBytes(bytes) << " MiB, "
+            << Bytes_to_GiBytes(bytes) << " GiB)"
+        << std::flush;
+    return (MyStream.str());
+}
+
 void Print_N_Times(const std::string x, const int N, const bool newline = true);
 
 class Memory_Allocation
