@@ -182,6 +182,18 @@ class LookUpTable
     }
 
     // **************************************************************
+    void Multiply(const Double x)
+    /**
+     *   Multiply the content of the table by a constant.
+     */
+    {
+        for (int i = 0 ; i <= n ; i++)
+        {
+            table[i] *= x;
+        }
+    }
+
+    // **************************************************************
     ~LookUpTable()
     {
         free_me(table, n);
