@@ -194,6 +194,23 @@ class LookUpTable
     }
 
     // **************************************************************
+    void Convert_Units(const Double conversion_x, const Double conversion_y)
+    /**
+     * Convert LUT's units
+     */
+    {
+        range_min   *= conversion_x;
+        range_max   *= conversion_x;
+        dx          *= conversion_x;
+        inv_dx      /= conversion_x;
+
+        for (int i = 0 ; i <= n ; i++)
+        {
+            table[i] *= conversion_y;
+        }
+    }
+
+    // **************************************************************
     ~LookUpTable()
     {
         free_me(table, n);
