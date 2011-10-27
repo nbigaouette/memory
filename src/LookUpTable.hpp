@@ -153,7 +153,8 @@ class LookUpTable
             << "    Range:              [" << range_min << ", " << range_max << "]\n"
             << "    Number of points:   " << n << "\n"
             << "    dx:                 " << dx << "\n"
-            << "    Size:               " << memsize << " " << suffix << "B\n";
+            << "    Size:               " << memsize << " " << suffix << "B\n"
+            << "    Pointer:            " << table << "\n";
     }
 
     // **************************************************************
