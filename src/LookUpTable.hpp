@@ -42,6 +42,20 @@ class LookUpTable
     }
 
     // **************************************************************
+    LookUpTable(const LookUpTable &other_lut)
+    /**
+     * Copy constructor. Needed to allocate new memory and preventing double free corruptions.
+     */
+    {
+        Initialize(other_lut.function, other_lut.range_min, other_lut.range_max, other_lut.n, other_lut.name);
+
+        // Now copy the other_lut's table values, only if if was initialized.
+        if (other_lut.table != NULL)
+            for (int i = 0 ; i <= n ; i++)
+                Set(i, other_lut.Table(i));
+    }
+
+    // **************************************************************
     int     Get_n()                     { return n;         }
     Double  Get_inv_dx()                { return inv_dx;    }
     Double  Get_XMin()                  { return range_min; }
@@ -50,7 +64,7 @@ class LookUpTable
     const Double* Get_Pointer() const   { return table;     }
 
     // **************************************************************
-    Double Table(const int i)
+    Double Table(const int i) const
     {
 #ifdef YDEBUG
         assert(i <= n);
