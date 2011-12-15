@@ -51,7 +51,7 @@ class LookUpTable
 
         // Now copy the other_lut's table values, only if if was initialized.
         if (other_lut.table != NULL)
-            for (int i = 0 ; i <= n ; i++)
+            for (int i = 0 ; i < n ; i++)
                 Set(i, other_lut.Table(i));
     }
 
@@ -67,7 +67,7 @@ class LookUpTable
     Double Table(const int i) const
     {
 #ifdef YDEBUG
-        assert(i <= n);
+        assert(i < n);
 #endif // #ifdef YDEBUG
         return table[i];
     }
@@ -91,12 +91,22 @@ class LookUpTable
         }
         else
         {
-            // Allocate n+1 points, since read() does a linear interpolation
-            // between table[i] and table[i+1].
-            table   = (Double *) calloc_and_check(n+1, sizeof(Double), "LookUpTable");
+            table   = (Double *) calloc_and_check(n, sizeof(Double), "LookUpTable");
         }
 
-        dx          = (range_max - range_min) / Double(n);
+        /*
+         *  Example:
+         *      n   = 6 points
+         *      n-1 = 5 intervals
+         *      dx = (xmax - xmin) / nb_intervals = (xmax - xmin) / (n-1)
+         *                          x               x
+         *                  x               x
+         *          x
+         *  x________________________________________
+         *  |       |       |       |       |       |
+         * xmin                                    xmax
+         */
+        dx          = (range_max - range_min) / Double(n-1);
         inv_dx      = Double(1.0) / dx;
 
         Print();
@@ -109,7 +119,7 @@ class LookUpTable
         {
             assert(table != NULL);
 
-            for (int i = 0 ; i <= n ; i++)
+            for (int i = 0 ; i < n ; i++)
             {
                 x        = Get_x_from_i(i);
                 table[i] = function(x);
@@ -129,7 +139,7 @@ class LookUpTable
     // **************************************************************
     void Print()
     {
-        Double memsize = Double(n+1) * sizeof(Double);
+        Double memsize = Double(n) * sizeof(Double);
         std::string suffix;
         if(memsize >= 1.024e3)
         {
@@ -160,7 +170,7 @@ class LookUpTable
     // **************************************************************
     void Print_Table(const Double factor_x = 1.0, const Double factor_y = 1.0)
     {
-        for (int i = 0 ; i <= n ; i++)
+        for (int i = 0 ; i < n ; i++)
         {
             //std_cout.Format(20,10,'g'); std_cout << Get_x_from_i(i)*factor_x << "  "; std_cout.Format(20,10,'g'); std_cout << Table(i)*factor_y << "\n";
             //fprintf(stderr, "%20.10g   %20.10g\n", Get_x_from_i(i)*factor_x, Table(i)*factor_y*Get_x_from_i(i));
@@ -175,7 +185,7 @@ class LookUpTable
      */
     {
         const Double xnorm = (x - range_min)*inv_dx;
-        const int i        = int(xnorm);
+        const int i        = int(floor(xnorm));
 #ifdef YDEBUG
         assert(i < n);
 #endif // #ifdef YDEBUG
@@ -191,7 +201,7 @@ class LookUpTable
         assert(function == NULL);
         assert(is_initialized);
         assert(i >= 0);
-        assert(i <= n); // n is inclusive!!!
+        assert(i <  n);
 
         table[i] = x;
     }
@@ -202,7 +212,7 @@ class LookUpTable
      *   Multiply the content of the table by a constant.
      */
     {
-        for (int i = 0 ; i <= n ; i++)
+        for (int i = 0 ; i < n ; i++)
         {
             table[i] *= x;
         }
@@ -219,7 +229,7 @@ class LookUpTable
         dx          *= conversion_x;
         inv_dx      /= conversion_x;
 
-        for (int i = 0 ; i <= n ; i++)
+        for (int i = 0 ; i < n ; i++)
         {
             table[i] *= conversion_y;
         }
