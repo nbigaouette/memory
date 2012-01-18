@@ -157,6 +157,7 @@ class LookUpTable
             suffix = "Gi";
         }
 
+        std_cout.Clear_Format();
         std_cout
             << "Lookup table information:\n"
             << "    Name:               " << name << "\n"
