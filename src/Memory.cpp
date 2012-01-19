@@ -29,6 +29,41 @@ void Print_N_Times(const std::string x, const int N, const bool newline)
 }
 
 // **************************************************************
+std::string Float_in_String_Binary(float d)
+/**
+ * Prints binary representation of a float
+ * http://www.exploringbinary.com/displaying-the-raw-fields-of-a-floating-point-number/
+ */
+{
+    uint32_t *float_as_int = (uint32_t *) &d;
+    const int bit_size = CHAR_BIT*sizeof(uint32_t);
+
+    std::string float_in_binary;
+    int counter = 0;
+
+    // Print bits by bits
+    for (int b = 0 ; b <= bit_size-1 ; b++)
+    {
+
+        if (b == 1)
+            float_in_binary[counter++] = ' ';  // Space after sign field
+        if (b == 9)
+            float_in_binary[counter++] = ' ';  // Space after exponent field
+
+        // Get bit, but in reverse order. On Little Endian machines
+        // (most of Intel and such), the byte with lower address
+        // is the less significant. Since we want to print from
+        // the most significant, we iterate from the end.
+        if ((*float_as_int >> ((bit_size-1)-b)) & 1)
+            float_in_binary[counter++] = '1';
+        else
+            float_in_binary[counter++] = '0';
+    }
+
+    return float_in_binary;
+}
+
+// **************************************************************
 std::string Double_in_String_Binary(double d)
 /**
  * Prints binary representation of a double

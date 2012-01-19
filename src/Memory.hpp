@@ -160,6 +160,7 @@ void free_me_size(Pointer &p, const size_t size_to_remove)
 
 // **************************************************************
 std::string Double_in_String_Binary(double d);
+std::string Float_in_String_Binary(float d);
 
 // **************************************************************
 template <class Integer>
