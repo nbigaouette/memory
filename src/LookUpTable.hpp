@@ -202,7 +202,8 @@ class LookUpTable
      *   Reads the table and returns an interpolated (linear) value at point x.
      */
     {
-        const int i = Get_i_from_x(x);
+        const Double xnorm = (x - range_min)*inv_dx;
+        const int i        = int(floor(xnorm));
 #ifdef YDEBUG
         assert(i < n);
 #endif // #ifdef YDEBUG
