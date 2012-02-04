@@ -60,6 +60,7 @@ class LookUpTable
 
     // **************************************************************
     int     Get_n()                     { return n;         }
+    Double  Get_dx()                    { return dx;        }
     Double  Get_inv_dx()                { return inv_dx;    }
     Double  Get_XMin()                  { return range_min; }
     Double  Get_XMax()                  { return range_max; }
