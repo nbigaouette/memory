@@ -188,13 +188,20 @@ class LookUpTable
     }
 
     // **************************************************************
+    inline int Get_i_from_x(const Double x)
+    {
+        const Double xnorm = (x - range_min)*inv_dx;
+        const int i        = int(floor(xnorm));
+        return i;
+    }
+
+    // **************************************************************
     inline Double read(const Double x)
     /**
      *   Reads the table and returns an interpolated (linear) value at point x.
      */
     {
-        const Double xnorm = (x - range_min)*inv_dx;
-        const int i        = int(floor(xnorm));
+        const int i = Get_i_from_x(x);
 #ifdef YDEBUG
         assert(i < n);
 #endif // #ifdef YDEBUG
