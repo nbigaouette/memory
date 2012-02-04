@@ -1,6 +1,9 @@
 #ifndef INC_LUT_HPP
 #define INC_LUT_HPP
 
+//const bool verbose = true;
+const bool verbose = false;
+
 #include <string>
 
 #include "Memory.hpp"
@@ -109,9 +112,12 @@ class LookUpTable
         dx          = (range_max - range_min) / Double(n-1);
         inv_dx      = Double(1.0) / dx;
 
-        Print();
+        if (verbose)
+        {
+            Print();
 
-        std_cout << "Building lookup table table \"" << _name << "\"..." << std::flush;
+            std_cout << "Building lookup table table \"" << _name << "\"..." << std::flush;
+        }
         Double x = 0.0;
         int percentage = 0;
 
@@ -124,16 +130,18 @@ class LookUpTable
                 x        = Get_x_from_i(i);
                 table[i] = function(x);
                 percentage = int(Double(i) / Double(n) * 100.0);
-                if ((percentage % 2) == 0)
+                if (verbose and (percentage % 2) == 0)
                     printf(" %3d %%\b\b\b\b\b\b", percentage);
                 fflush(stdout);
             }
         }
         else
         {
-            std_cout << " Nothing to do since function pointer given is NULL." << std::flush;
+            if (verbose)
+                std_cout << " Nothing to do since function pointer given is NULL." << std::flush;
         }
-        std_cout << " Done.   \n" << std::flush;
+        if (verbose)
+            std_cout << " Done.   \n" << std::flush;
     }
 
     // **************************************************************
