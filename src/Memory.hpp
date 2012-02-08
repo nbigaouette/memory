@@ -15,6 +15,12 @@ using namespace boost;
 
 #include "StdCout.hpp"
 
+namespace memory
+{
+    // See Git_Info.cpp (generated dynamically from Git_Info.cpp_template & Makefile.rules)
+    void Log_Git_Info(std::string basename = "");
+}
+
 //const double B_to_KiB   = 1.0        / 1024.0;
 //const double B_to_MiB   = B_to_KiB   / 1024.0;
 //const double B_to_GiB   = B_to_MiB   / 1024.0;
