@@ -33,6 +33,20 @@ BOOST_AUTO_TEST_CASE(Memory)
     allocated_memory.Verify_Limit();
 }
 
+BOOST_AUTO_TEST_CASE(BinaryStrings)
+{
+    const float  valf = 1.23456789;
+    const double vald = 1.23456789;
+    const int    vali = 5;
+    const std::string valf_string = Float_in_String_Binary(valf);
+    const std::string vald_string = Double_in_String_Binary(vald);
+    const std::string vali_string = Integer_in_String_Binary(vali);
+
+    BOOST_CHECK(valf_string == std::string("0 01111111 00111100000011001010010"));
+    BOOST_CHECK(vald_string == std::string("0 01111111111 0011110000001100101001000010100000111101111000011011"));
+    BOOST_CHECK(vali_string == std::string("00000000000000000000000000000101"));
+}
+
 
 BOOST_AUTO_TEST_CASE(LookupTable)
 {
