@@ -6,8 +6,6 @@
 #include <cstdlib> // abort()
 
 #include "Memory.hpp"
-// #include "General.hpp"
-// #include "Constants.hpp"
 
 const int max_text_width = 97;
 
