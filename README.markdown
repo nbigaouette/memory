@@ -7,7 +7,7 @@ memory is already allocated. Users can decide a maximum in the memory they want
 to use and the library will halt when the limit is reached and {c,m}alloc_and_check()
 are called.
 
-A lookup table class is also present. It allow fast
+A lookup table class is also present. See the usage for examples.
 
 
 # Compilation
