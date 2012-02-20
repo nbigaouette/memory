@@ -36,7 +36,8 @@ std::string Float_in_String_Binary(float d)
     uint32_t *float_as_int = (uint32_t *) &d;
     const int bit_size = CHAR_BIT*sizeof(uint32_t);
 
-    std::string float_in_binary;
+    // +2 to allocate for the (two) spaces between the sign, exponent and mantissa.
+    std::string float_in_binary(32+2, ' ');
     int counter = 0;
 
     // Print bits by bits
@@ -71,7 +72,8 @@ std::string Double_in_String_Binary(double d)
     uint64_t *double_as_int = (uint64_t *) &d;
     const int bit_size = CHAR_BIT*sizeof(uint64_t);
 
-    std::string double_in_binary;
+    // +2 to allocate for the (two) spaces between the sign, exponent and mantissa.
+    std::string double_in_binary(64+2, ' ');
     int counter = 0;
 
     // Print bits by bits
