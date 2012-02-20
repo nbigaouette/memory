@@ -89,6 +89,7 @@ as opposed to calloc() and malloc().
 
 ## Binary printing
 Values can be converted to a binary std::string representation:
+
 ``` C++
     const float  valf = 1.23456789;
     const double vald = 1.23456789;
