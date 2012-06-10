@@ -417,10 +417,15 @@ Memory_Allocation Memory_Allocation::operator+(Memory_Allocation &right_hand_sid
 // **************************************************************
 bool Memory_Allocation::Under_Limit()
 {
-    if (allocated_bytes < max_allocated_bytes)
+    if (max_allocated_bytes == 0)
         return true;
     else
-        return false;
+    {
+        if (allocated_bytes < max_allocated_bytes)
+            return true;
+        else
+            return false;
+    }
 }
 
 // **************************************************************
