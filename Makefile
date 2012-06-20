@@ -1,13 +1,7 @@
 #################################################################
 # Main makefile
 # Type "make help" for usage
-#
-# To compile (optimized) and install static and shared library
-# with each avaible compilers, type:
-# for c in pgi intel gcc 'sun studio12'; do make c $c optimized static shared install; done
 #################################################################
-
-# Pseudo-Random Number Generator library (PRNG)
 
 # Project options
 LIB             := memory
