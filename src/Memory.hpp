@@ -135,6 +135,56 @@ inline std::string MemPause(std::string msg = std::string(""))
 }
 
 // **************************************************************
+template <class Float>
+std::string Float_in_String_Binary(Float d)
+/**
+ * Prints binary representation of a floating point (single or double precision)
+ * http://www.exploringbinary.com/displaying-the-raw-fields-of-a-floating-point-number/
+ */
+{
+    uint64_t *float_as_int = (uint64_t *) &d;
+    const int bit_size = CHAR_BIT*sizeof(Float);
+
+    static const size_t floats_sizes[2] = {32, 64};
+    static const size_t floats_exponents_sizes[2] = {8, 11};
+    const size_t index = sizeof(d) / 4 - 1; // 0 for single precision, 1 for double precision.
+
+    // +2 to allocate for the (two) spaces between the sign, exponent and mantissa.
+    std::string double_in_binary(floats_sizes[index]+2, ' ');
+    size_t counter = 0;
+
+    // Print bits by bits
+    for (size_t b = 0 ; b <= bit_size-1 ; b++)
+    {
+
+        if (b == 1)
+            double_in_binary[counter++] = ' ';  // Space after sign field
+        if (b == floats_exponents_sizes[index]+1)
+            double_in_binary[counter++] = ' ';  // Space after exponent field
+
+        // Get bit, but in reverse order. On Little Endian machines
+        // (most of Intel and such), the byte with lower address
+        // is the less significant. Since we want to print from
+        // the most significant, we iterate from the end.
+        if ((*float_as_int >> ((bit_size-1)-b)) & 1)
+            double_in_binary[counter++] = '1';
+        else
+            double_in_binary[counter++] = '0';
+    }
+
+    return double_in_binary;
+}
+// **************************************************************
+inline std::string Double_in_String_Binary(double d)
+/**
+ * Backward compatibility.
+ */
+{
+    return Float_in_String_Binary<double>(d);
+}
+// **************************************************************
+
+// **************************************************************
 template <class Pointer>
 void free_me(Pointer &p, const uint64_t nb = 0)
 {
@@ -163,10 +213,6 @@ void free_me_size(Pointer &p, const size_t size_to_remove)
     }
     p = NULL;
 }
-
-// **************************************************************
-std::string Double_in_String_Binary(double d);
-std::string Float_in_String_Binary(float d);
 
 // **************************************************************
 template <class Integer>
