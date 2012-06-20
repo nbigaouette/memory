@@ -122,7 +122,7 @@ extern Memory_Allocation memory_to_allocate;
 
 
 // **************************************************************
-inline std::string MemPause(std::string msg = std::string(""))
+inline std::string MemPause(const std::string &msg = std::string(""))
 {
     std::string answer;
     if (msg != std::string(""))
