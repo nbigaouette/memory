@@ -95,7 +95,7 @@ class LookUpTable
         }
         else
         {
-            table   = (Double *) calloc_and_check(n, sizeof(Double), "LookUpTable");
+            table   = calloc_and_check<Double>(n, "LookUpTable");
         }
 
         /*

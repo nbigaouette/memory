@@ -268,16 +268,158 @@ std::string Integer_in_String_Binary(Integer n)
 }
 
 // **************************************************************
-void * calloc_and_check(uint64_t     nb, size_t s, std::string msg = "");
-void * calloc_and_check(int64_t      nb, size_t s, std::string msg = "");
-void * calloc_and_check(unsigned int nb, size_t s, std::string msg = "");
-void * calloc_and_check(         int nb, size_t s, std::string msg = "");
+template <class T, class Integer>
+T* alloc_and_check(Integer nb, const bool clear = false, const std::string &msg = "")
+/**
+ * Template for memory allocation.
+ *  -Check that memory is not above a certain threshold.
+ *  -Verify that memory allocation succeed
+ */
+{
+    const int _max_text_width = 97;
+
+    const size_t s = sizeof(T);
+    const size_t nb_s = nb * s;
+
+    T *p = NULL;
+
+    Memory_Allocation mem_temp = allocated_memory;
+
+    mem_temp += nb_s;
+
+    if (!mem_temp.Under_Limit())
+    {
+        Print_N_Times("#", _max_text_width);
+        std_cout
+            << "WARNING!!!\n    "
+            << "Trying to allocate:           ";
+        std_cout.Format(20,0,'d');
+        std_cout << nb << " x " << s << " bytes = " << nb_s << " bytes\n";
+        std_cout << "                                               (";
+        std_cout.Format(0, 3, 'g');
+        std_cout
+            << Bytes_to_KiBytes(nb_s) << " KiB, "
+            << Bytes_to_MiBytes(nb_s) << " MiB, "
+            << Bytes_to_GiBytes(nb_s) << " GiB)\n    "
+            << "but memory will be over the limit:\n";
+        std_cout << "                   ";
+        std_cout.Format(20,0,'d');
+        std_cout
+            << allocated_memory.Get_Max_Bytes() << " bytes, (";
+        std_cout.Format(0, 3, 'g');
+        std_cout
+            << allocated_memory.Get_Max_KiBytes() << " KiB, "
+            << allocated_memory.Get_Max_MiBytes() << " MiB, "
+            << allocated_memory.Get_Max_GiBytes() << " GiB)\n    "
+            << "Current usage: ";
+        std_cout.Format(20,0,'d');
+        std_cout
+            << allocated_memory.Get_Bytes_Allocated() << " bytes, (";
+        std_cout.Format(0, 3, 'g');
+        std_cout
+            << allocated_memory.Get_KiBytes_Allocated() << " KiB, "
+            << allocated_memory.Get_MiBytes_Allocated() << " MiB, "
+            << allocated_memory.Get_GiBytes_Allocated() << " GiB)\n    "
+            << "Wanted usage:  ";
+        std_cout.Format(20,0,'d');
+        std_cout
+            << mem_temp.Get_Bytes_Allocated() << " bytes, (";
+        std_cout.Format(0, 3, 'g');
+        std_cout
+            << mem_temp.Get_KiBytes_Allocated() << " KiB, "
+            << mem_temp.Get_MiBytes_Allocated() << " MiB, "
+            << mem_temp.Get_GiBytes_Allocated() << " GiB)\n";
+        if (msg != "")
+        {
+            std_cout << "    Comment: " << msg << std::endl;
+        }
+
+        std::string answer = MemPause("Are you sure you want to continue? [y,N]");
+        std_cout << std::flush;
+        if ( ! (answer == "y" || answer == "Y"))
+        {
+            std_cout << "Exiting.\n" << std::flush;
+            abort();
+        }
+        std_cout << "Continuing..." << std::endl << std::flush;
+    }
+
+    if (clear)
+        p = static_cast<T *>(calloc(nb, s));
+    else
+        p = static_cast<T *>(malloc(nb_s));
+
+    if (p == NULL)
+    {
+        std_cout << "ERROR!!!\n";
+        std_cout << "    Allocation of ";
+        std_cout.Format(20,0,'d');
+        std_cout << nb << " x " << s << " bytes = " << nb_s << " bytes\n";
+        std_cout << "                                               (";
+        std_cout.Format(0, 3, 'g');
+        std_cout
+            << Bytes_to_KiBytes(nb_s) << " KiB, "
+            << Bytes_to_MiBytes(nb_s) << " MiB, "
+            << Bytes_to_GiBytes(nb_s) << " GiB)\n"
+            << "    FAILED!!!\n";
+        if (msg != "")
+        {
+            std_cout << "Comment: " << msg << std::endl;
+        }
+        std_cout << "Aborting.\n" << std::flush;
+        abort();
+    }
+
+    allocated_memory += nb_s;
+
+    return p;
+}
 
 // **************************************************************
-void * malloc_and_check(uint64_t     nb, size_t s, std::string msg = "");
-void * malloc_and_check(int64_t      nb, size_t s, std::string msg = "");
-void * malloc_and_check(unsigned int nb, size_t s, std::string msg = "");
-void * malloc_and_check(         int nb, size_t s, std::string msg = "");
+template <class T, class Integer>
+T* calloc_and_check(Integer nb, const std::string &msg = "")
+/**
+ * Template normally used: wrapper around alloc_and_check<T, Integer>()
+ */
+{
+    return alloc_and_check<T, Integer>(nb, true, msg);
+}
+
+// **************************************************************
+template <class T, class Integer>
+T* malloc_and_check(Integer nb, const std::string &msg = "")
+/**
+ * Template normally used: wrapper around alloc_and_check<T, Integer>()
+ */
+{
+    return alloc_and_check<T, Integer>(nb, false, msg);
+}
+
+// **************************************************************
+template <class Integer>
+void * alloc_and_check(Integer nb, size_t s, const bool clear = false, const std::string &msg = "")
+/**
+ * For backward compatibility.
+ */
+{
+    void *p = NULL;
+    if      (s == 1)
+        p = static_cast<void *>(alloc_and_check<uint8_t, Integer>(nb,  clear, msg));
+    else if (s == 2)
+        p = static_cast<void *>(alloc_and_check<uint16_t, Integer>(nb, clear, msg));
+    else if (s == 4)
+        p = static_cast<void *>(alloc_and_check<uint32_t, Integer>(nb, clear, msg));
+    else if (s == 8)
+        p = static_cast<void *>(alloc_and_check<uint64_t, Integer>(nb, clear, msg));
+    else
+    {
+        std_cout << "ERROR: Can't allocate for sizeof() == " << s << std::endl;
+        abort();
+    }
+
+    return p;
+}
+
 
 #endif // INC_MEMORY_hpp
 
