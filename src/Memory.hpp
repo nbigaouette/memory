@@ -4,6 +4,7 @@
 #include <cstddef>  // size_t
 #include <cstdlib>  // free()
 #include <climits> // CHAR_BIT
+#include <cmath>    // abs()
 
 #ifdef __PGI
 #include <boost/cstdint.hpp>
@@ -418,6 +419,22 @@ void * alloc_and_check(Integer nb, size_t s, const bool clear = false, const std
     }
 
     return p;
+}
+
+// **************************************************************
+template <class T>
+bool Are_Values_Close(const T val1, const T val2, const double tolerance)
+/**
+ * Compare two values and return true if they are close enough.
+ * Tolerance is a percentage.
+ */
+{
+    const double percent_error = std::abs(double(val1 - val2) / double(val1)) * 100.0;
+
+    if (percent_error < tolerance)
+        return true;
+    else
+        return false;
 }
 
 
