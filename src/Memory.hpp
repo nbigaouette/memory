@@ -437,6 +437,19 @@ bool Are_Values_Close(const T val1, const T val2, const double tolerance)
         return false;
 }
 
+// **************************************************************
+template <class T>
+bool Is_Value_Close_To_Zero(const T val, const double tolerance)
+/**
+ * Return true if value is close (inside +-tolerance) to 0.
+ */
+{
+    if (std::abs(val) < tolerance)
+        return true;
+    else
+        return false;
+}
+
 
 #endif // INC_MEMORY_hpp
 
